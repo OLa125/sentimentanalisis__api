@@ -7,7 +7,9 @@ import re
 import os
 
 app = Flask(__name__)
-CORS(app)
+
+# ✅ تفعيل CORS لقبول أي Origin أو بورت
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}})
 
 # تحميل موديل التصنيف
 classifier = pipeline("sentiment-analysis", model="nlptown/bert-base-multilingual-uncased-sentiment")
@@ -171,4 +173,3 @@ def predict():
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
-
